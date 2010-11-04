@@ -1,0 +1,12 @@
+# Use this file to set up the list of Service Providers you trust.  This is to
+# be used if you don't want anonymous 3rd party web applications to be able to
+# determine a user's Identity Provider.  You may want to restrict this if
+# there are profiling risks associated with malicious 3rd party web
+# applications.
+#
+# If this file is left without any hosts specified, Pong responses will be sent
+# to all Ping requests.
+#
+# Example:
+# www.serviceprovider1.com
+# www.serviceprovider2.com

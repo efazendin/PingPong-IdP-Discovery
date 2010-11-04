@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<display-name>pingpong-idp</display-name>
+
+
+	<filter>
+		<description>Filters each request to add the Privacy Policy headers.</description>
+		<display-name>PrivacyPolicyFilter</display-name>
+		<filter-name>PrivacyPolicyFilter</filter-name>
+		<filter-class>com.pingidentity.efazendin.pingpong.idp.PrivacyPolicyFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>PrivacyPolicyFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<description></description>
+		<display-name>PingHandlerServlet</display-name>
+		<servlet-name>PingHandlerServlet</servlet-name>
+		<servlet-class>com.pingidentity.efazendin.pingpong.idp.PingHandlerServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description></description>
+		<display-name>SetLoggedInHereServlet</display-name>
+		<servlet-name>SetLoggedInHereServlet</servlet-name>
+		<servlet-class>com.pingidentity.efazendin.pingpong.idp.SetLoggedInHereServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>SetLoggedInHereServlet</servlet-name>
+		<url-pattern>/SetLoggedInHere</url-pattern>
+	</servlet-mapping>	
+	<servlet-mapping>
+		<servlet-name>PingHandlerServlet</servlet-name>
+		<url-pattern>/PingHandler</url-pattern>
+	</servlet-mapping>
+	
+
+</web-app>

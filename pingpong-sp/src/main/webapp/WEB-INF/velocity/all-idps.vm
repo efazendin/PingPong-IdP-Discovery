@@ -1,0 +1,18 @@
+#*
+
+This file does not require any modifications.
+
+*#
+<div>
+
+<select onchange="window.parent.location = this.options[this.selectedIndex].value;">
+	<option value="">Select an IdP</option>
+	
+#foreach( $idp in $idpList )
+    <option value="$idp.getStartSSOUrl()">$idp.getName()</option>
+#end
+
+</select>
+
+
+</div>

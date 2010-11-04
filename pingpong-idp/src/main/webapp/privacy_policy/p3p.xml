@@ -1,0 +1,8 @@
+<META>
+  <POLICY-REFERENCES>
+    <POLICY-REF about="/idp/privacy_policy/privacy.p3p#policy1">
+      <INCLUDE>/</INCLUDE>
+      <COOKIE-INCLUDE/>
+    </POLICY-REF>
+  </POLICY-REFERENCES>
+</META>

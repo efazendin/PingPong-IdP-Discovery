@@ -1,0 +1,21 @@
+#*
+This is the file used to render the HTML to the user of their Identity
+Provider.  This file is rendered after PingPong completes and the user is
+presented with the link/graphic to click to SSO from their Identity Provider.
+
+
+You can use something like the following if you are going to be calling the
+PingPongIdpDiscovery servlet from an iframe embedded on your existing
+application:
+<a href="#" onclick="window.parent.location='$startSSOUrl'"><img class="logo" src="http://www.txef.org/pics/generic_logo.gif" /></a>
+
+Otherwise, if you are going to be redirecting the browser to the
+PingPongIdpDiscovery servlet you can use:
+<a href="$startSSOUrl"><img class="logo" src="http://www.txef.org/pics/generic_logo.gif" /></a>
+
+*#
+<div class="sso-link">
+
+	<a href="$startSSOUrl"><img class="logo" src="http://www.txef.org/pics/generic_logo.gif"/></a>
+
+</div>

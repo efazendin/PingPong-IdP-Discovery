@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>pingpong-sp</display-name>
+
+	<context-param>
+		<param-name>startsso.url</param-name>
+		<param-value>https://localhost:9031/sp/startSSO.ping</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>pong.handler.url</param-name>
+		<param-value>http://localhost:8080/pingpong-sp/PongHandler</param-value>
+	</context-param>	
+		
+	<context-param>
+		<param-name>page.size</param-name>
+		<param-value>10</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>page.expiration</param-name>
+		<param-value>5000</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>idp.id.cookie.name</param-name>
+		<param-value>IdpId</param-value>
+	</context-param>
+	
+	<servlet>
+		<display-name>PingPongIdpDiscoveryServlet</display-name>
+		<servlet-name>PingPongIdpDiscoveryServlet</servlet-name>
+		<servlet-class>com.pingidentity.efazendin.pingpong.sp.PingPongIdpDiscoveryServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<display-name>PingPongPageServlet</display-name>
+		<servlet-name>PingPongPageServlet</servlet-name>
+		<servlet-class>com.pingidentity.efazendin.pingpong.sp.PingPongPageServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<display-name>PongHandlerServlet</display-name>
+		<servlet-name>PongHandlerServlet</servlet-name>
+		<servlet-class>com.pingidentity.efazendin.pingpong.sp.PongHandlerServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<display-name>PongStatusServlet</display-name>
+		<servlet-name>PongStatusServlet</servlet-name>
+		<servlet-class>com.pingidentity.efazendin.pingpong.sp.PongStatusServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<display-name>PingPongGetIdpsServlet</display-name>
+		<servlet-name>PingPongGetIdpsServlet</servlet-name>
+		<servlet-class>com.pingidentity.efazendin.pingpong.sp.PingPongGetIdpsServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<display-name>PingPongSetIdpIdServlet</display-name>
+		<servlet-name>PingPongSetIdpIdServlet</servlet-name>
+		<servlet-class>com.pingidentity.efazendin.pingpong.sp.PingPongSetIdpIdServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>PingPongIdpDiscoveryServlet</servlet-name>
+		<url-pattern>/PingPongIdpDiscovery</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PingPongPageServlet</servlet-name>
+		<url-pattern>/PingPongPage</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PongHandlerServlet</servlet-name>
+		<url-pattern>/PongHandler</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PongStatusServlet</servlet-name>
+		<url-pattern>/PongStatus</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PingPongGetIdpsServlet</servlet-name>
+		<url-pattern>/PingPongGetIdps</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PingPongSetIdpIdServlet</servlet-name>
+		<url-pattern>/PingPongSetIdpId</url-pattern>
+	</servlet-mapping>
+
+</web-app>

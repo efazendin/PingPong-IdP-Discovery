@@ -1,0 +1,6 @@
+#*
+
+This file does not require any modifications.
+
+*#
+<iframe class="pingPongIframe" src="$pingHandlerUrl"></iframe>
