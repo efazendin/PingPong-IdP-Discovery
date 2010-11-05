@@ -58,8 +58,6 @@ public class PingHandlerServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		//_logger.debug("HTTP REQUEST:\n" + req);
 		
 		String redirectUrl = req.getParameter(PONG_HANDLER_PARAM);
 		
@@ -97,9 +95,7 @@ public class PingHandlerServlet extends HttpServlet {
 				_logger.error("Error parsing Pong URL: " + redirectUrl, e);
 			}
 		}
-				
-		
-		
+
 		return result;
 	}
 

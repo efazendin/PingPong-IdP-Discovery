@@ -13,11 +13,6 @@ public class HttpUtil {
 	
 	private static final Logger _logger = Logger.getLogger(HttpUtil.class);
 
-	/*
-	 * So I'll admit, I rebuilt some things that's been built before, so this is
-	 * probably unnecessary, and probably doesn't catch everything
-	 */	
-	
 	private static final String COOKIE_NAME = "loggedInHere";
 	
 	public static boolean hasLoggedInHere(HttpServletRequest req) {
@@ -34,8 +29,7 @@ public class HttpUtil {
 				}
 			}
 		}
-		
-		
+
 		return result;
 	}
 	
@@ -45,18 +39,8 @@ public class HttpUtil {
 		cookie.setMaxAge(60 * 60 * 24 * 365 * 5);
 		resp.addCookie(cookie);
 	}
-	
-	
-	// This method is duplicated on the SP side
+
 	public static String addParameterToUrl(String url, String paramName, String paramValue) {
-		
-		/*
-		try {
-			paramValue = URLEncoder.encode(paramValue, "utf-8");
-		} catch (UnsupportedEncodingException e) {
-			_logger.error("There was an error url encoding the " + paramName + " query parameter.", e);
-		}
-		*/
 		
 		if (url.contains("?")) {
 			

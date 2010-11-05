@@ -9,39 +9,23 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet Filter implementation class PrivacyPolicyFilter
- */
 public class PrivacyPolicyFilter implements Filter {
 
-    /**
-     * Default constructor. 
-     */
     public PrivacyPolicyFilter() {
 
     }
 
-	/**
-	 * @see Filter#destroy()
-	 */
 	public void destroy() {
 
 	}
 
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		
+
 		((HttpServletResponse)response).setHeader("P3P", "policyref=\"/idp/privacy_policy/p3p.xml\", CP=\"NOI CURa ADMa DEVa OUR IND COM NAV STA\"");
 
-		// pass the request along the filter chain
 		chain.doFilter(request, response);
 	}
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
 	public void init(FilterConfig fConfig) throws ServletException {
 
 	}

@@ -15,7 +15,6 @@ public class SetLoggedInHereServlet extends HttpServlet {
 		
 		HttpUtil.writeLoggedInHereCookie(resp);
 		
-		
 	}
 
 }
