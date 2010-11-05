@@ -28,7 +28,6 @@ public class PingPongGetIdpsServlet extends HttpServlet {
 	private static final String V_START_SSO_PARAM = "startSSOUrl";
 	private static final String V_ALL_IDPS_TEMPLATE = "all-idps.vm";
 	
-	// TODO Will there be any threading issues?
 	private VelocityEngine ve;
 
     public PingPongGetIdpsServlet() {
@@ -50,8 +49,6 @@ public class PingPongGetIdpsServlet extends HttpServlet {
 		List<IdentityProvider> idps;
 		IdentityProviderPager idpPager = (IdentityProviderPager)req.getSession().getAttribute(IdentityProviderPager.IDP_PAGER);
 		
-		
-		// TODO I noticed that the logos are being displayed in reverse prioritized order.  Figure out why.
 		VelocityContext context = new VelocityContext();
 		String htmlEncodedIdpsStartSSOUrl;
 
@@ -77,7 +74,6 @@ public class PingPongGetIdpsServlet extends HttpServlet {
 				}	
 			}
 		}
-
 
 		if (anyAuthnedUser)
 			resp.getWriter().write("<p>Or select your Identity Provider from the list below.</p>");

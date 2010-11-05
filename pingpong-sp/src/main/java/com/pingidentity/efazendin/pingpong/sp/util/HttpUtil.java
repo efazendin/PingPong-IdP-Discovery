@@ -23,17 +23,8 @@ public class HttpUtil {
 		return startSSOUrl;
 	}
 	
-	// This method is duplicated on the IdP side
 	public static String addParameterToUrl(String url, String paramName, String paramValue) {
-		
-		/*
-		try {
-			paramValue = URLEncoder.encode(paramValue, "utf-8");
-		} catch (UnsupportedEncodingException e) {
-			_logger.error("There was an error url encoding the " + paramName + " query parameter.", e);
-		}
-		*/
-		
+
 		if (url.contains("?")) {
 			
 			if ((url.lastIndexOf("?") == url.length()) || (url.lastIndexOf("&") == url.length())) {

@@ -13,8 +13,6 @@ import com.pingidentity.efazendin.pingpong.sp.model.IdentityProviderAppFilter;
 /**
  * A Prioritizer sets the priority of IdPs to query.
  * 
- * Todo: Make it so the prioritizer used is set in a config file some how.  Since the classes wouldn't be known beforehand, this will require instantiating the class in a way other than 'New ClassName()'.  Hivelive does stuff like this, I believe.
- * 
  * @author efazendin
  *
  */

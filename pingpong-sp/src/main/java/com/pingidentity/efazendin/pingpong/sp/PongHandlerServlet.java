@@ -28,7 +28,6 @@ public class PongHandlerServlet extends HttpServlet {
 		if ((idp != null) && (authnedUser != null) && (idpPager != null))
 			idpPager.updateHasAuthenticatedUser(idp, Boolean.valueOf(authnedUser));
 		
-		// TODO We don't really need to print this out.  This was just for debugging.
 		resp.getOutputStream().println(idp);
 		resp.getOutputStream().println("\n");
 		resp.getOutputStream().println("AuthNedUser: " + authnedUser);

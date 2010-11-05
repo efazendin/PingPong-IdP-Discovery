@@ -42,17 +42,7 @@ public class IdentityProviderPager {
 	}
 	
 	public void updateHasAuthenticatedUser(String entityId, boolean hasAuthenticatedUser) {
-		/*
-		for (IdentityProvider idp : prioritizedIdps) {
-			if (idp.getEntityId().equals(entityId)) {
-				idp.setHasAuthenticatedUser(hasAuthenticatedUser);
-			
-				if (hasAuthenticatedUser)
-					usersIdps.add(idp);
-			}
-		}
-		*/
-		
+
 		IdentityProvider idp = getIdentityProvider(entityId);
 		if (idp != null) {
 			idp.setHasAuthenticatedUser(hasAuthenticatedUser);
@@ -91,14 +81,6 @@ public class IdentityProviderPager {
 	
 	public boolean contiansIdp(String entityId) {
 		boolean result = false;
-		/*
-		for (IdentityProvider idp : prioritizedIdps) {
-			if (idp.getEntityId().equals(entityId)) {
-				result = true;
-				break;
-			}
-		}
-		*/
 		
 		IdentityProvider idp = getIdentityProvider(entityId);
 		if (idp != null)
@@ -109,15 +91,6 @@ public class IdentityProviderPager {
 	
 	public String getFileName(String entityId) {
 		String result = "";
-		
-		/*
-		for (IdentityProvider idp : prioritizedIdps) {
-			if (idp.getEntityId().equals(entityId)) {
-				result = idp.getFileName();
-				break;
-			}
-		}
-		*/
 		
 		IdentityProvider idp = getIdentityProvider(entityId);
 		if (idp != null)

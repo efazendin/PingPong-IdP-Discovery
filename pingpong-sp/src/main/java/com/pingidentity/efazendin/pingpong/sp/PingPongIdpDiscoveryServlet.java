@@ -71,13 +71,11 @@ public class PingPongIdpDiscoveryServlet extends HttpServlet {
 			} catch (IOException e) {
 				_logger.error("Failed to load IdPs.", e);
 			}
-	        //_logger.debug("Properties from " + IDP_PROPS_FILE + ": " + props);
         } else {
         	_logger.warn("There are no IdPs defined in " + IDP_PROPS_FILE);
         }
 
         idpMap = IdentityProviderLoader.load(props);
-        //_logger.debug("idpMap.size(): " + idpMap.size());
         
         
 		// Initialize a local velocity engine
@@ -107,8 +105,6 @@ public class PingPongIdpDiscoveryServlet extends HttpServlet {
 		// Set up startSSO URLs for each of the requestor's IdPs
 		String baseStartSSOUrl = this.getServletContext().getInitParameter(START_SSO_URL_PARAM);
 		requestorsIdpMap.setStartSSOUrl(baseStartSSOUrl, encodedStartSSOParams);
-		
-		//  TODO It seems like this really should be passing in a prioritizer to an IdpPager or IdpMap...
 		
 		// Figure out what's going to be the prioritized list of IdPs for this
 		// given request. This currently doesn't do it, but the instantiated
@@ -178,7 +174,6 @@ public class PingPongIdpDiscoveryServlet extends HttpServlet {
 			// Build PingPongIdpDiscovery URL to ignore IdpId cookie
 			String relativeUrl;
 			if (req.getQueryString() != null) {
-				// TODO Small bug here, if ignoreIdpId=false is already in query string it persists even though an ignoreIdpId=true is going to be added a couple of lines down from here.  ignoreIdpId is then treated as false, resulting in showing the previousIdp.jsp page.
 				relativeUrl = "PingPongIdpDiscovery?" + req.getQueryString();
 			}
 			else
