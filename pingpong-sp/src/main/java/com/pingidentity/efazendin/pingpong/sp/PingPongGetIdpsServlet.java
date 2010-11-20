@@ -19,7 +19,14 @@ import com.pingidentity.efazendin.pingpong.sp.prioritizers.NamePrioritizer;
 import com.pingidentity.efazendin.pingpong.sp.prioritizers.Prioritizer;
 import com.pingidentity.efazendin.pingpong.sp.util.VelocityEngineFactory;
 
-
+/**
+ * This servlet is called via ajax once the {@link PongStatusServlet} has
+ * indicated that either one or more IdPs were found for this user or PingPong
+ * has completed.
+ * 
+ * @author efazendin
+ * 
+ */
 public class PingPongGetIdpsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger _logger = Logger.getLogger(PingPongGetIdpsServlet.class);
@@ -44,58 +51,60 @@ public class PingPongGetIdpsServlet extends HttpServlet {
 
 	}
 
+	/**
+	 * If any IdP responded and indicated a user in this browser context has
+	 * authenticated with them previously, this will first create the html to be
+	 * displayed to the user showing these IdPs. Afterwards, it will generate
+	 * the html that diplays all possible IdPs.
+	 * 
+	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		List<IdentityProvider> idps;
 		IdentityProviderPager idpPager = (IdentityProviderPager)req.getSession().getAttribute(IdentityProviderPager.IDP_PAGER);
 		
-		VelocityContext context = new VelocityContext();
+		VelocityContext vContext = new VelocityContext();
 		String htmlEncodedIdpsStartSSOUrl;
 
-		
 		// Set up the list of links for IdPs that have authenticated the user
-		boolean anyAuthnedUser = idpPager.haveAnyAuthnedUser();
-		
-		if (anyAuthnedUser) {
-			idps = idpPager.getUsersIdps();
-			
-			_logger.debug("PingPong found " + idps.size() + " IdP(s) have previously authenticated the user.");
+		if (idpPager.haveAnyAuthnedUser()) {
+			List<IdentityProvider> idps = idpPager.getUsersIdps();
 			
 			for (IdentityProvider idp : idps) {
 				htmlEncodedIdpsStartSSOUrl = StringEscapeUtils.escapeHtml(idp.getStartSSOUrl());
-				context.put(V_START_SSO_PARAM, htmlEncodedIdpsStartSSOUrl);
-				_logger.debug("startSSOUrl: " + htmlEncodedIdpsStartSSOUrl);
+				vContext.put(V_START_SSO_PARAM, htmlEncodedIdpsStartSSOUrl);
+				
+				_logger.debug("startSSOUrl for user's IdP: " + htmlEncodedIdpsStartSSOUrl);
 
 		        try {
 		        	// Write velocity transformed HTML to HTTP response.
-					ve.mergeTemplate(idp.getFileName(), "utf-8", context, resp.getWriter());
+					ve.mergeTemplate(idp.getFileName(), "utf-8", vContext, resp.getWriter());
 				} catch (Exception e) {
 					_logger.error("There was an error processing the IdP link template", e);
 				}	
 			}
+			resp.getWriter().write("<p>Or select your Identity Provider from the list below.</p>");
+			
+			_logger.debug("PingPong found " + idps.size() + " IdP(s) have previously authenticated the user.");
+		} else {
+			resp.getWriter().write("<p>Select your Identity Provider from the list below.</p>");
 		}
 
-		if (anyAuthnedUser)
-			resp.getWriter().write("<p>Or select your Identity Provider from the list below.</p>");
-		else
-			resp.getWriter().write("<p>Select your Identity Provider from the list below.</p>");
 
-
-		// Set up the dropdown for all IdPs		
+		// Set up the dropdown for all IdPs
 		Prioritizer idpPrioritizer = new NamePrioritizer();
-    	List<IdentityProvider> nameOrderedIdps;
-    	nameOrderedIdps = idpPrioritizer.prioritize(idpPager.getAllIdentityProviders(), this.getServletContext(), req, resp);
-
+    	List<IdentityProvider> nameOrderedIdps = idpPrioritizer.prioritize(idpPager.getAllIdentityProviders(),
+    												null, this.getServletContext(), req, resp);
 		for (IdentityProvider idp : nameOrderedIdps) {
 			htmlEncodedIdpsStartSSOUrl = StringEscapeUtils.escapeHtml(idp.getStartSSOUrl());
-			_logger.debug("startSSOUrl: " + htmlEncodedIdpsStartSSOUrl);
 			idp.setStartSSOUrl(htmlEncodedIdpsStartSSOUrl);
+			
+			_logger.debug("startSSOUrl for dropdown: " + htmlEncodedIdpsStartSSOUrl);
 		}
-		context = new VelocityContext();
-		context.put("idpList", nameOrderedIdps);
+		vContext = new VelocityContext();
+		vContext.put("idpList", nameOrderedIdps);
 
 		try {
-			ve.mergeTemplate(V_ALL_IDPS_TEMPLATE, "utf-8", context, resp.getWriter());
+			ve.mergeTemplate(V_ALL_IDPS_TEMPLATE, "utf-8", vContext, resp.getWriter());
 		} catch (Exception e) {
 			_logger.error("There was an error processing the all IdPs select dropdown template", e);
 		}

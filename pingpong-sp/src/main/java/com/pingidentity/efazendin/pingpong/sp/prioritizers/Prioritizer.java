@@ -17,10 +17,6 @@ import com.pingidentity.efazendin.pingpong.sp.model.IdentityProviderAppFilter;
  *
  */
 public interface Prioritizer {
-
-
-	//Passing in ServletContext plus classes relavent to current request if a prioritizer wanted to take runtime information, such as cookies, IP address, etc., to establish priority
-	public List<IdentityProvider> prioritize(Set<IdentityProvider> identityProviderSet, ServletContext cont, HttpServletRequest req, HttpServletResponse resp);
 	
 	public List<IdentityProvider> prioritize(Set<IdentityProvider> identityProviderSet, IdentityProviderAppFilter filter, ServletContext cont, HttpServletRequest req, HttpServletResponse resp);
 	

@@ -1,5 +1,10 @@
 package com.pingidentity.efazendin.pingpong.sp.util;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.log4j.Logger;
 
 public class HttpUtil {
@@ -39,5 +44,18 @@ public class HttpUtil {
 		}
 		
 		return url;
+	}
+	
+	public static String getCookieValue(String name, Cookie[] cookies) {
+		String result = null;
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals(name)) {
+					result = cookie.getValue();
+				}
+
+			}
+		}
+		return result;
 	}
 }

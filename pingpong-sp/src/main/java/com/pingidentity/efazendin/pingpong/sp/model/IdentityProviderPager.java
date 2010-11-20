@@ -29,6 +29,12 @@ public class IdentityProviderPager {
 	private List<IdentityProvider> usersIdps = new ArrayList<IdentityProvider>();
 	
 
+	public IdentityProviderPager(List<IdentityProvider> prioritizedIdps, int pageSize, long pageExpirationPeriod) {
+		this.prioritizedIdps = prioritizedIdps;
+		this.pageSize = pageSize;
+		this.pageExpirationPeriod = pageExpirationPeriod;
+	}
+
 	public List<IdentityProvider> getNextPage() {
 		pageRequestedAt = new Date();
 		

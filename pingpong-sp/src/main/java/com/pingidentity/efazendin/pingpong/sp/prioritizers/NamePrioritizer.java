@@ -26,12 +26,8 @@ public class NamePrioritizer implements Prioritizer {
 
 	public List<IdentityProvider> prioritize(Set<IdentityProvider> identityProviderSet, IdentityProviderAppFilter filter, ServletContext cont, HttpServletRequest req, HttpServletResponse resp) {
 		
-		filter.filter(identityProviderSet);
-		
-		return prioritize(identityProviderSet, cont, req, resp);
-	}
-	
-	public List<IdentityProvider> prioritize(Set<IdentityProvider> identityProviderSet, ServletContext cont, HttpServletRequest req, HttpServletResponse resp) {
+		if (filter != null)
+			filter.filter(identityProviderSet);
 		
 		List<NameComparableIdentityProvider> prioritizedList = new ArrayList<NameComparableIdentityProvider>();
 		

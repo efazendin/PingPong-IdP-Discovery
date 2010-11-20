@@ -29,6 +29,11 @@
 		<param-value>IdpId</param-value>
 	</context-param>
 	
+	<context-param>
+		<param-name>idp.prioritizer</param-name>
+		<param-value>com.pingidentity.efazendin.pingpong.sp.prioritizers.FilenamePrioritizer</param-value>
+	</context-param>
+	
 	<servlet>
 		<display-name>PingPongIdpDiscoveryServlet</display-name>
 		<servlet-name>PingPongIdpDiscoveryServlet</servlet-name>
