@@ -4,31 +4,44 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	<display-name>pingpong-sp</display-name>
 
+	<!-- The URL to your federation server which will start an SSO transaction. -->
 	<context-param>
 		<param-name>startsso.url</param-name>
 		<param-value>https://localhost:9031/sp/startSSO.ping</param-value>
 	</context-param>
 	
+	<!-- The URL to where you want Pong responses sent. -->
 	<context-param>
 		<param-name>pong.handler.url</param-name>
 		<param-value>http://localhost:8080/pingpong-sp/PongHandler</param-value>
 	</context-param>	
-		
+	
+	<!-- The number of IdPs to Ping at any one time. -->	
 	<context-param>
 		<param-name>page.size</param-name>
 		<param-value>10</param-value>
 	</context-param>
 	
+	<!-- The maximum amount of time in miliseconds a page of Ping requests should wait for all Pong responses. -->
 	<context-param>
 		<param-name>page.expiration</param-name>
 		<param-value>5000</param-value>
 	</context-param>
 	
+	<!-- The cookie name used to store a user's IdP Entity ID.  This cookie is provided as an example and would only be
+			populated once the user provides a valid SSO assertion from their IdP. -->
 	<context-param>
 		<param-name>idp.id.cookie.name</param-name>
 		<param-value>IdpId</param-value>
 	</context-param>
 	
+	<!-- The prioritizer used to establish the sequence of IdPs that will be queried.  The FilenamePrioritizer will sort
+			the IdPs based on the filename of the corresponding velocity template for each IdP.  The velocity templates
+			are stored in WEB-INF/velocity. 
+			
+			Implementations of com.pingidentity.efazendin.pingpong.sp.prioritizers.Prioritizer can be provided here to
+			change how IdPs are prioritized for PingPong IdP Discovery.  As an example, an implementation could take
+			data directly from the user's HTTP request, such as IP address, to establish the sequence of IdPs.  -->
 	<context-param>
 		<param-name>idp.prioritizer</param-name>
 		<param-value>com.pingidentity.efazendin.pingpong.sp.prioritizers.FilenamePrioritizer</param-value>

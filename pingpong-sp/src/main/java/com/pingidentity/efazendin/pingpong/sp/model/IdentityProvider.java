@@ -5,18 +5,18 @@ import java.util.List;
 
 public class IdentityProvider implements Cloneable {
 
-	private String name;
-	private String entityId;
-	private String fileName;
-	private String pingHandlerUrl;
+	private String name = null;
+	private String entityId = null;
+	private String fileName = null;
+	private String pingHandlerUrl = null;
 	private List<String> apps;
 	private boolean hasPonged = false;
 	private boolean hasAuthenticatedUser = false;
-	private String startSSOUrl; // This is just for temporary storage for velocity template.  It probably doesn't make sense to be here.
+	private String startSSOUrl = null; // This is just for temporary storage for velocity template.  It probably doesn't make sense to be here.
 	
 	
 	public IdentityProvider() {
-		this(null, null, null, null, null);
+		this.setApps(new ArrayList<String>());
 	}
 	
 	public IdentityProvider(String name, String entityId, String fileName, String pingHandlerUrl, String startSSOUrl) {

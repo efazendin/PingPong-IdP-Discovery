@@ -2,6 +2,7 @@ package com.pingidentity.efazendin.pingpong.sp.prioritizers;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.pingidentity.efazendin.pingpong.sp.model.IdentityProvider;
-import com.pingidentity.efazendin.pingpong.sp.model.IdentityProviderAppFilter;
 
 /**
  * A Prioritizer implementation that orders the IdPs by the names on the files of IdP templates.
@@ -24,11 +24,12 @@ public class NamePrioritizer implements Prioritizer {
 
 	private static final Logger _logger = Logger.getLogger(NamePrioritizer.class);
 
-	public List<IdentityProvider> prioritize(Set<IdentityProvider> identityProviderSet, IdentityProviderAppFilter filter, ServletContext cont, HttpServletRequest req, HttpServletResponse resp) {
-		
-		if (filter != null)
-			filter.filter(identityProviderSet);
-		
+	public void init(ServletContext cont) {
+		//ignore
+	}
+	
+	public List<IdentityProvider> prioritize(Set<IdentityProvider> identityProviderSet, HttpServletRequest req, HttpServletResponse resp) {
+		/*
 		List<NameComparableIdentityProvider> prioritizedList = new ArrayList<NameComparableIdentityProvider>();
 		
 		for (IdentityProvider idp : identityProviderSet)
@@ -41,9 +42,21 @@ public class NamePrioritizer implements Prioritizer {
 			castedList.add(idp);
 
 		return castedList;
+		*/
+		List<IdentityProvider> sortedList = new ArrayList<IdentityProvider>(identityProviderSet);
+		Collections.sort(sortedList, new NameComparator());
+		return sortedList;
 	}
 	
+	private class NameComparator implements Comparator {
+
+		public int compare(Object arg0, Object arg1) {
+			return ((IdentityProvider)arg0).getName().compareTo(((IdentityProvider)arg1).getName());
+		}
+		
+	}
 	
+	/*
 	private class NameComparableIdentityProvider extends IdentityProvider implements Comparable {
 
 		public NameComparableIdentityProvider(IdentityProvider idp) {
@@ -57,5 +70,5 @@ public class NamePrioritizer implements Prioritizer {
 		}
 		
 	}
-
+	*/
 }

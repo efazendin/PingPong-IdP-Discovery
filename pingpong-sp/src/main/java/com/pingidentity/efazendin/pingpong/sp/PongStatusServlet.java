@@ -33,7 +33,7 @@ public class PongStatusServlet extends HttpServlet {
 		if (idpPager != null) {
 			
 			_logger.debug("idpPager.haveAllPagedPonged(): " + idpPager.haveAllPagedPonged());
-			if (idpPager.haveAllPagedPonged()) {
+			if ((idpPager.haveAllPagedPonged()) || idpPager.hasPageExpired()) {
 				if (idpPager.haveAnyAuthnedUser())
 					status = GET_IDPS;
 				else {
@@ -42,20 +42,8 @@ public class PongStatusServlet extends HttpServlet {
 					else
 						status = NO_USER_IDPS;	
 				}
-			} else {
-				if (idpPager.hasPageExpired()) {
-					_logger.debug("Page expired.");
-					if (idpPager.haveAnyAuthnedUser())
-						status = GET_IDPS;
-					else {
-						if (idpPager.hasNextPage())
-							status = NEXT_PAGE;
-						else
-							status = NO_USER_IDPS;
-					}
-				} else
-					status = CHECK_BACK;
-			}
+			} else
+				status = CHECK_BACK;
 		}
 		
 		_logger.debug("Pong status: " + status);

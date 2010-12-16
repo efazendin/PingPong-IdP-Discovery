@@ -92,8 +92,8 @@ public class PingPongGetIdpsServlet extends HttpServlet {
 
 		// Set up the dropdown for all IdPs
 		Prioritizer idpPrioritizer = new NamePrioritizer();
-    	List<IdentityProvider> nameOrderedIdps = idpPrioritizer.prioritize(idpPager.getAllIdentityProviders(),
-    												null, this.getServletContext(), req, resp);
+    	List<IdentityProvider> nameOrderedIdps = idpPrioritizer.prioritize(idpPager.getAllIdentityProviders(), req, resp);
+    	
 		for (IdentityProvider idp : nameOrderedIdps) {
 			htmlEncodedIdpsStartSSOUrl = StringEscapeUtils.escapeHtml(idp.getStartSSOUrl());
 			idp.setStartSSOUrl(htmlEncodedIdpsStartSSOUrl);

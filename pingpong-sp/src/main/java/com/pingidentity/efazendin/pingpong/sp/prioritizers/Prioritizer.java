@@ -18,7 +18,9 @@ import com.pingidentity.efazendin.pingpong.sp.model.IdentityProviderAppFilter;
  */
 public interface Prioritizer {
 	
-	public List<IdentityProvider> prioritize(Set<IdentityProvider> identityProviderSet, IdentityProviderAppFilter filter, ServletContext cont, HttpServletRequest req, HttpServletResponse resp);
+	public void init(ServletContext cont);
+	
+	public List<IdentityProvider> prioritize(Set<IdentityProvider> identityProviderSet, HttpServletRequest req, HttpServletResponse resp);
 	
 
 }

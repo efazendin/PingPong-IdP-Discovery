@@ -1,5 +1,6 @@
 package com.pingidentity.efazendin.pingpong.sp.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -15,7 +16,7 @@ import org.apache.log4j.Logger;
  * @author efazendin
  *
  */
-public class IdentityProviderPager {
+public class IdentityProviderPager implements Serializable {
 	
 	private static final Logger _logger = Logger.getLogger(IdentityProviderPager.class);
 	
@@ -163,10 +164,14 @@ public class IdentityProviderPager {
 		
 		int potentialFullPageIndex = ((pageNumber * pageSize) + pageSize) - 1;
 		int firstIndexOfPage = (pageNumber * pageSize);
+		int lastIndexOfPage = Math.min(potentialFullPageIndex, prioritizedIdps.size());
+		/*
 		int lastIndexOfPage = potentialFullPageIndex > prioritizedIdps.size() - 1
 								? prioritizedIdps.size() - 1 : potentialFullPageIndex;
+								*/
 
-		for (int i = firstIndexOfPage; i <= lastIndexOfPage; i++)
+		//for (int i = firstIndexOfPage; i <= lastIndexOfPage; i++)
+		for (int i = firstIndexOfPage; i < lastIndexOfPage; i++)
 			thePage.add(prioritizedIdps.get(i));
 
 		return thePage;
