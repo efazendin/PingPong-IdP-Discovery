@@ -29,20 +29,6 @@ public class NamePrioritizer implements Prioritizer {
 	}
 	
 	public List<IdentityProvider> prioritize(Set<IdentityProvider> identityProviderSet, HttpServletRequest req, HttpServletResponse resp) {
-		/*
-		List<NameComparableIdentityProvider> prioritizedList = new ArrayList<NameComparableIdentityProvider>();
-		
-		for (IdentityProvider idp : identityProviderSet)
-			prioritizedList.add(new NameComparableIdentityProvider(idp));
-		
-		Collections.sort(prioritizedList);
-				
-		List<IdentityProvider> castedList = new ArrayList<IdentityProvider>();
-		for (IdentityProvider idp : prioritizedList)
-			castedList.add(idp);
-
-		return castedList;
-		*/
 		List<IdentityProvider> sortedList = new ArrayList<IdentityProvider>(identityProviderSet);
 		Collections.sort(sortedList, new NameComparator());
 		return sortedList;
@@ -55,20 +41,4 @@ public class NamePrioritizer implements Prioritizer {
 		}
 		
 	}
-	
-	/*
-	private class NameComparableIdentityProvider extends IdentityProvider implements Comparable {
-
-		public NameComparableIdentityProvider(IdentityProvider idp) {
-			super(idp.getName(), idp.getEntityId(), idp.getFileName(), idp.getPingHandlerUrl(), idp.getStartSSOUrl());
-			this.setApps(idp.getApps());
-		}
-		
-		public int compareTo(Object o) {
-			
-			return this.getName().compareTo(((IdentityProvider)o).getName());
-		}
-		
-	}
-	*/
 }

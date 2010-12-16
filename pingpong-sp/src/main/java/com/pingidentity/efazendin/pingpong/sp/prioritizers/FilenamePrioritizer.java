@@ -30,21 +30,6 @@ public class FilenamePrioritizer implements Prioritizer {
 	
 	public List<IdentityProvider> prioritize(Set<IdentityProvider> identityProviderSet, HttpServletRequest req, HttpServletResponse resp) {
 		
-		/*
-		List<FilenameComparableIdentityProvider> prioritizedList = new ArrayList<FilenameComparableIdentityProvider>();
-		
-		for (IdentityProvider idp : identityProviderSet)
-			prioritizedList.add(new FilenameComparableIdentityProvider(idp));
-		
-		Collections.sort(prioritizedList);
-				
-		List<IdentityProvider> castedList = new ArrayList<IdentityProvider>();
-		for (IdentityProvider idp : prioritizedList)
-			castedList.add(idp);
-
-		return castedList;
-		*/
-		
 		List<IdentityProvider> sortedList = new ArrayList<IdentityProvider>(identityProviderSet);
 		Collections.sort(sortedList, new FilenameComparator());
 		return sortedList;
@@ -57,19 +42,4 @@ public class FilenamePrioritizer implements Prioritizer {
 		}
 		
 	}
-	/*
-	private class FilenameComparableIdentityProvider extends IdentityProvider implements Comparable {
-
-		public FilenameComparableIdentityProvider(IdentityProvider idp) {
-			super(idp.getName(), idp.getEntityId(), idp.getFileName(), idp.getPingHandlerUrl(), idp.getStartSSOUrl());
-			this.setApps(idp.getApps());
-		}
-		
-		public int compareTo(Object o) {
-			
-			return this.getFileName().compareTo(((IdentityProvider)o).getFileName());
-		}
-		
-	}
-	*/
 }
