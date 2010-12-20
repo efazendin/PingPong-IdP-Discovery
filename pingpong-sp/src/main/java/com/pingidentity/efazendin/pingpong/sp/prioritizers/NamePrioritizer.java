@@ -34,10 +34,10 @@ public class NamePrioritizer implements Prioritizer {
 		return sortedList;
 	}
 	
-	private class NameComparator implements Comparator {
+	private class NameComparator implements Comparator<IdentityProvider> {
 
-		public int compare(Object arg0, Object arg1) {
-			return ((IdentityProvider)arg0).getName().compareTo(((IdentityProvider)arg1).getName());
+		public int compare(IdentityProvider idp0, IdentityProvider idp1) {
+			return idp0.getName().compareTo(idp1.getName());
 		}
 		
 	}

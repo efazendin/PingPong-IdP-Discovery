@@ -35,10 +35,10 @@ public class FilenamePrioritizer implements Prioritizer {
 		return sortedList;
 	}
 	
-	private class FilenameComparator implements Comparator {
+	private class FilenameComparator implements Comparator<IdentityProvider> {
 
-		public int compare(Object arg0, Object arg1) {
-			return ((IdentityProvider)arg0).getFileName().compareTo(((IdentityProvider)arg1).getFileName());
+		public int compare(IdentityProvider idp0, IdentityProvider idp1) {
+			return idp0.getFileName().compareTo(idp1.getFileName());
 		}
 		
 	}

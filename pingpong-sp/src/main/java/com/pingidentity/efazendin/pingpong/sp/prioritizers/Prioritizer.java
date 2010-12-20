@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.pingidentity.efazendin.pingpong.sp.model.IdentityProvider;
-import com.pingidentity.efazendin.pingpong.sp.model.IdentityProviderAppFilter;
 
 /**
  * A Prioritizer sets the priority of IdPs to query.
