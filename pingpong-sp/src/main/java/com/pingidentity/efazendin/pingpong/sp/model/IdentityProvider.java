@@ -12,7 +12,7 @@ public class IdentityProvider implements Cloneable {
 	private List<String> apps;
 	private boolean hasPonged = false;
 	private boolean hasAuthenticatedUser = false;
-	private String startSSOUrl = null; // This is just for temporary storage for velocity template.  It probably doesn't make sense to be here.
+	private String startSSOUrl = null;
 	
 	
 	public IdentityProvider() {
@@ -20,12 +20,12 @@ public class IdentityProvider implements Cloneable {
 	}
 	
 	public IdentityProvider(String name, String entityId, String fileName, String pingHandlerUrl, String startSSOUrl) {
+		this();
 		this.name = name;
 		this.entityId = entityId;
 		this.fileName = fileName;
 		this.pingHandlerUrl = pingHandlerUrl;
 		this.startSSOUrl = startSSOUrl;
-		this.setApps(new ArrayList<String>());
 	}
 	
 	
