@@ -31,25 +31,36 @@ public class IdentityProviderLoader {
 		_logger.debug("IdPs: " + entityIds.toString());
 
 		IdentityProvider idp;
+		String name;
+		String filename;
+		String url;
+		String apps;
 		for(String id : entityIds) {
-			idp = new IdentityProvider();
+			name = identityProviders.getProperty("idp." + id + ".name");
+			filename = identityProviders.getProperty("idp." + id + ".filename");
+			url = identityProviders.getProperty("idp." + id + ".url");
+			apps = identityProviders.getProperty("idp." + id + ".apps");
 
-			idp.setName(identityProviders.getProperty("idp." + id + ".name"));
-			idp.setEntityId(id);
-			idp.setFileName(identityProviders.getProperty("idp." + id + ".filename"));
-			idp.setPingHandlerUrl(identityProviders.getProperty("idp." + id + ".url"));
+			if (name != null && filename != null && url != null) {
 
-			String apps = identityProviders.getProperty("idp." + id + ".apps");
+				idp = new IdentityProvider();
 
-			if (apps != null) {
-				String[] appArray = apps.split(",");
-				for (String appId : appArray) {
+				idp.setName(name);
+				idp.setEntityId(id);
+				idp.setFileName(filename);
+				idp.setPingHandlerUrl(url);
 
-					idp.addApp(appId.trim());
+				if (apps != null) {
+					String[] appArray = apps.split(",");
+					for (String appId : appArray) {
+
+						idp.addApp(appId.trim());
+					}
 				}
-			}
 
-			theMap.put(idp);
+				theMap.put(idp);
+			} else
+				_logger.warn("Ignoring IdP " + id + " because it is missing required properties (name, filename, url).");
 		}
 
 
