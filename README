@@ -39,14 +39,14 @@ pingpong-sp
 Runtime
 =============
 
-/pingpong-idp/SetLoggedInHereServlet - This is a utility servlet meant for demonstration purposes.  When a browser makes
-   a request to it, it will write a cookie to the user's browser in the requested domain context.  This is the cookie
-   the IdP will reference when determining its response to a Ping request.
+/pingpong-idp/SetLoggedInHereServlet - This is a utility servlet meant for demonstration purposes.  When a browser
+   makes a request to it, it will write a cookie to the user's browser in the requested domain context.  This is the
+   cookie the IdP will reference when determining its response to a Ping request.
 
-/pingpong-sp/PingPongSetIdpIdServlet - This is a utility servlet meant for demonstration purposes.  It sets the value of
-   IdpId as a cookie in the browser, and this cookie is intended to represent that a user in this browser context has
-   successfully executed an SSO transaction with the specified IdP.  The PingPongIdpDiscovery servlet will first check
-   for this cookie before determining if it needs to execute PingPong IdP Discovery.
+/pingpong-sp/PingPongSetIdpIdServlet - This is a utility servlet meant for demonstration purposes.  It sets the value
+   of IdpId as a cookie in the browser, and this cookie is intended to represent that a user in this browser context
+   has successfully executed an SSO transaction with the specified IdP.  The PingPongIdpDiscovery servlet will first
+   check for this cookie before determining if it needs to execute PingPong IdP Discovery.
 
  * IdpId - The Entity ID of an Identity Provider from whom this SP will accept SSO assertions and that represents the
    IdP from which this user last SSO'ed.
@@ -56,10 +56,10 @@ Runtime
  * appId - An identifier for an application which can be used to scope the relevant IdPs.  AppIds can be defined in the
    IdP definition in the identity-providers.properties file.
  * ignoreIdpId - A boolean value that when true will cause pingpong-sp to ignore the IdpId cookie, which is used to
-   store the Entity ID of the IdP the user last successfully SSO'ed from.  This cookie can be used to eliminate the need
-   to process PingPong IdP Discovery.
- * startSSOParams - This is used to pass parameters that will influence the behavior of the SP federation server when SP
-   Initiated SSO is invoked with the discovered IdP.
+   store the Entity ID of the IdP the user last successfully SSO'ed from.  This cookie can be used to eliminate the
+   need to process PingPong IdP Discovery.
+ * startSSOParams - This is used to pass parameters that will influence the behavior of the SP federation server when
+   SP Initiated SSO is invoked with the discovered IdP.
 
 
 Demonstrating
