@@ -75,8 +75,8 @@ pingpong-sp/src/main/webapp/WEB-INF/web.xml
 
 pingpong-sp/src/main/resources/identity-providers.properties
 
- * idp.[IdP Entity Id].url - Set at least one of these with the DNS and port of the servlet container where you have the
-   pingpong-idp deployed.
+ * idp.[IdP Entity Id].url - Set at least one of these with the DNS and port of the servlet container where you have
+   the pingpong-idp deployed.
 
 You may also want to configure your /etc/hosts file with the correct DNS and IP addresses you are using in your
 demonstration.  It's possible to demonstrate more than one IdP and SP on a single machine by using the correct DNS
