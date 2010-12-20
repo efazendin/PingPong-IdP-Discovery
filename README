@@ -1,0 +1,94 @@
+Overview
+=============
+The pingpong-idp and pingpong-sp web applications are an implementation of PingPong IdP Discovery.  PingPong IdP
+Discovery is an Identity Provider discovery protocol, which is needed for enabling Service Provider initiated Single
+Sign-on.  The protocol is described in detail in an IETF draft at
+http://datatracker.ietf.org/doc/draft-efazendin-pingpong-idp-discovery/.
+
+The pingpong-sp application contains the majority of the functionality.  It could be integrated with an existing
+application by either redirecting users to the /PingPongIdpDiscovery servlet or by adding an iframe to the existing
+application with a src pointing to the PingPongIdpDiscovery servlet.
+
+The pingpong-idp application is relatively simple and is provided to demonstrate the core functionality required of an
+IdP that is going to support PingPong IdP Discovery.  Although pingpong-idp could be integrated into an IdP's
+application, the IdP could also easily reproduce the functionality directly into their application.
+
+
+Building
+=============
+Both pingpong-idp and pingpong-sp are maven projects and can be built using 'mvn package'.
+
+
+Configuration
+=============
+
+pingpong-idp
+
+ * pong-whitelist.txt - This allows for whitelisting trusted SPs by DNS name of the PongHandler URL.  If no entries are
+   added, all Ping requests will be responded to with a Pong response, regardless of the PongHandler URL.
+
+
+pingpong-sp
+
+ * identity-providers.properties - This is used to define the set of IdPs that the SP will use for PingPong IdP
+   Discovery.  More details are found in the comments of the file.
+ * web.xml - This provides a set of context-params that can be used to define the behavior of the SP implementation of
+   PingPong IdP Discovery.
+
+
+Runtime
+=============
+
+/pingpong-idp/SetLoggedInHereServlet - This is a utility servlet meant for demonstration purposes.  When a browser makes
+   a request to it, it will write a cookie to the user's browser in the requested domain context.  This is the cookie
+   the IdP will reference when determining its response to a Ping request.
+
+/pingpong-sp/PingPongSetIdpIdServlet - This is a utility servlet meant for demonstration purposes.  It sets the value of
+   IdpId as a cookie in the browser, and this cookie is intended to represent that a user in this browser context has
+   successfully executed an SSO transaction with the specified IdP.  The PingPongIdpDiscovery servlet will first check
+   for this cookie before determining if it needs to execute PingPong IdP Discovery.
+
+ * IdpId - The Entity ID of an Identity Provider from whom this SP will accept SSO assertions and that represents the
+   IdP from which this user last SSO'ed.
+
+/pingpong-sp/PingPongIdpDiscovery - This servlet can receive the following optional parameters at runtime:
+
+ * appId - An identifier for an application which can be used to scope the relevant IdPs.  AppIds can be defined in the
+   IdP definition in the identity-providers.properties file.
+ * ignoreIdpId - A boolean value that when true will cause pingpong-sp to ignore the IdpId cookie, which is used to
+   store the Entity ID of the IdP the user last successfully SSO'ed from.  This cookie can be used to eliminate the need
+   to process PingPong IdP Discovery.
+ * startSSOParams - This is used to pass parameters that will influence the behavior of the SP federation server when SP
+   Initiated SSO is invoked with the discovered IdP.
+
+
+Demonstrating
+=============
+To demonstrate this project you will need to configure, build, and deploy pingpong-idp and pingpong-sp.
+
+1. Configuration
+To configure this for your environment you will likely need to modify the following:
+
+pingpong-sp/src/main/webapp/WEB-INF/web.xml
+
+ * pong.handler.url - Set this with the DNS and port of the servlet container where you have pingpong-sp deployed.
+
+pingpong-sp/src/main/resources/identity-providers.properties
+
+ * idp.[IdP Entity Id].url - Set at least one of these with the DNS and port of the servlet container where you have the
+   pingpong-idp deployed.
+
+You may also want to configure your /etc/hosts file with the correct DNS and IP addresses you are using in your
+demonstration.  It's possible to demonstrate more than one IdP and SP on a single machine by using the correct DNS
+settings.
+
+
+2. Build
+Building is described above.
+
+
+3. Deploy
+You will need to deploy pingpong-idp and pingpong-sp into a servlet container.  You can use either use a single servlet
+container for all IdPs and SPs (logically distinguished with DNS settings) or split the IdPs and SPs across multiple
+servlet containers.
+
