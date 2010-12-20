@@ -160,18 +160,14 @@ public class IdentityProviderPager implements Serializable {
 	
 	
 	private List<IdentityProvider> getPageOfIdPs(int pageNumber) {
+		
 		List<IdentityProvider> thePage = new ArrayList<IdentityProvider>();
 		
 		int potentialFullPageIndex = ((pageNumber * pageSize) + pageSize) - 1;
 		int firstIndexOfPage = (pageNumber * pageSize);
-		int lastIndexOfPage = Math.min(potentialFullPageIndex, prioritizedIdps.size());
-		/*
-		int lastIndexOfPage = potentialFullPageIndex > prioritizedIdps.size() - 1
-								? prioritizedIdps.size() - 1 : potentialFullPageIndex;
-								*/
+		int lastIndexOfPage = Math.min(potentialFullPageIndex, prioritizedIdps.size() - 1);
 
-		//for (int i = firstIndexOfPage; i <= lastIndexOfPage; i++)
-		for (int i = firstIndexOfPage; i < lastIndexOfPage; i++)
+		for (int i = firstIndexOfPage; i <= lastIndexOfPage; i++)
 			thePage.add(prioritizedIdps.get(i));
 
 		return thePage;
