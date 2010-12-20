@@ -32,8 +32,9 @@ public class PongStatusServlet extends HttpServlet {
 		
 		if (idpPager != null) {
 			
-			_logger.debug("idpPager.haveAllPagedPonged(): " + idpPager.haveAllPagedPonged());
-			if ((idpPager.haveAllPagedPonged()) || idpPager.hasPageExpired()) {
+			boolean haveAllPonged = idpPager.haveAllPagedPonged();
+			_logger.debug("idpPager.haveAllPagedPonged(): " + haveAllPonged);
+			if (haveAllPonged || idpPager.hasPageExpired()) {
 				if (idpPager.haveAnyAuthnedUser())
 					status = GET_IDPS;
 				else {
